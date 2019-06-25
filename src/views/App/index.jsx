@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import './index.scss';
 
 import Home from '../../views/Home'
+import NotFound from '../../views/NotFound'
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +15,10 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <Switch>
         <Route exact path='/home' component={Home}></Route>
+        <Route component={NotFound}></Route>
+        </Switch>
       </Router>
     );
   }
