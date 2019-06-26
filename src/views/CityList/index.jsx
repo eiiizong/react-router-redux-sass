@@ -51,7 +51,12 @@ class CityList extends Component {
 												<span>{item.name_en}</span>
 											</p>
 											<div className="btn-wrapper">
-												<Link to="/home">
+												<Link to={{
+													pathname: '/typelist',
+													query: {
+														cityName: item.name
+													}
+												}}>
 													<span className="bg"></span>
 													<span>点击进入</span>
 												</Link>
