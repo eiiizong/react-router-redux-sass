@@ -8,7 +8,7 @@ import './index.scss';
 import logoIMG from '../../assets/images/logo-big.png'
 import contentIMG01 from '../../assets/images/index-01.jpg'
 
-class Home extends Component {
+class DemandTypeList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -32,7 +32,7 @@ class Home extends Component {
 	}
 	render () {
 		return (
-			<div className="home">
+			<div className="demand-list">
 				<div className="title">
 					<div className="left">
 						<i className="icon"></i>
@@ -59,4 +59,4 @@ class Home extends Component {
 	}
 }
 
-export default Home;
+export default DemandTypeList;

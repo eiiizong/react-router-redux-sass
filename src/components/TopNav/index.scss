@@ -1,0 +1,48 @@
+@import '../../assets/styles/scss/variable.scss';
+
+.top-nav {
+  display: flex;
+  background-color: #fff;
+  height: $scss_top-nav-height;
+  color: #000;
+  font-size: $scss_32px;
+  font-weight: 500;
+  justify-content: space-between;
+  padding: 0 $scss_30px;
+  align-items: center;
+
+  .left {
+    cursor: pointer;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
+    display: block;
+    background-image: url(../../assets/images/icon-back@2x.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .icon-back {
+    width: $scss_48px;
+    height: $scss_32px;
+    background-image: url(../../assets/images/icon-back@2x.png);
+  }
+
+  .icon-filtrate {
+    width: $scss_32px;
+    height: $scss_32px;
+    background-image: url(../../assets/images/icon-filtrate@2x.png);
+    margin-right: 5px;
+  }
+
+  .icon-search {
+    width: $scss_42px;
+    height: $scss_42px;
+    background-image: url(../../assets/images/icon-search@2x.png);
+  }
+}
