@@ -4,13 +4,15 @@ import axios from '../../utils/axios';
 
 import './index.scss';
 import logoIMG from '../../assets/images/logo-big.png'
-// import Hello from '../../components/Hello'
+
+import MaskHint from '../../components/MaskHint'
 
 class CityList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			country: []
+			country: [],
+			isShowMask: true
 		}
 	}
 	componentDidMount () {
@@ -26,6 +28,11 @@ class CityList extends Component {
 				// console.log(data)
 				// console.log(data.country)
 			}
+		})
+	}
+	handleShowMask = () => {
+		this.setState({
+			isShowMask: !this.state.isShowMask
 		})
 	}
 	render () {
@@ -68,6 +75,9 @@ class CityList extends Component {
 						}
 					</ul>
 				</div>
+				{
+					this.state.isShowMask ? <MaskHint handleShowMask={this.handleShowMask}></MaskHint> : null
+				}
 			</div>
 		);
 	}

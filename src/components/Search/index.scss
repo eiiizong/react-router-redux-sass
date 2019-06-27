@@ -1,0 +1,110 @@
+@import '../../assets/styles/scss/variable.scss';
+
+.search {
+  width: 100%;
+  z-index: 100;
+  background-color: #fff;
+  color: #646464;
+  border-top: 1px solid #edeff2;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .input-wrapper {
+    padding: $scss_28px $scss_30px;
+
+    input {
+      width: 100%;
+      height: $scss_62px;
+      background-color: #edeff2;
+      border-radius: 50px;
+    }
+  }
+
+  .type-wrapper {
+    flex: 1;
+    overflow: auto;
+  }
+
+  .type-item {
+    padding-top: $scss_52px;
+    margin-bottom: $scss_8px;
+
+    &:last-child {
+      margin-bottom: $scss_96px;
+    }
+
+    h3 {
+      padding: 0 $scss_30px;
+      line-height: 1;
+      font-size: $scss_28px;
+      font-weight: 600;
+      color: #000;
+    }
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 $scss_5px;
+
+    label {
+      margin-top: $scss_30px;
+      padding: 0 $scss_25px;
+
+      input {
+        display: none;
+      }
+
+      span {
+        display: inline-block;
+        background-color: #fff;
+        font-size: $scss_28px;
+        line-height: $scss_52px;
+        font-weight: 500;
+        color: #646464;
+        border: 1px solid #edeff2;
+        padding: 0 $scss_10px;
+        transition: all 0.3s;
+      }
+
+      input {
+        &:checked~span {
+          background-color: #00baff;
+          color: #fff;
+          border-color: #00baff;
+        }
+      }
+    }
+  }
+
+  .btn-wrapper {
+    padding: $scss_46px $scss_192px;
+
+    button {
+      width: 100%;
+      height: $scss_70px;
+      background-color: #00baff;
+      border-radius: $scss_20px;
+      color: #fff;
+      font-size: $scss_32px;
+      line-height: $scss_70px;
+      padding: 0;
+      outline: 0;
+      border: 0;
+    }
+  }
+
+  input {
+    border: 0;
+    outline: 0;
+    border-radius: 0;
+    display: inline-block;
+    font-size: $scss_28px;
+    line-height: 1.4;
+    padding: 0 0 0 $scss_36px;
+    color: #000;
+    font-weight: 500;
+  }
+}

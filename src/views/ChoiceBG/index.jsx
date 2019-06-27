@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-
-import { Link } from 'react-router-dom';
-import axios from '../../utils/axios';
+// import { Link } from 'react-router-dom';
 
 import './index.scss';
 
-import logoIMG from '../../assets/images/logo-big.png'
-import contentIMG01 from '../../assets/images/index-01.jpg'
+// import logoIMG from '../../assets/images/logo-big.png'
 
 class ChoiceBG extends Component {
 	constructor(props) {
@@ -16,20 +13,9 @@ class ChoiceBG extends Component {
 		}
 	}
 	componentDidMount () {
-		this.requestAPI()
+
 	}
-	requestAPI () {
-		axios.post('/list/system').then(res => {
-			if (res.status === 200 && res.data.status === "200") {
-				const data = res.data
-				this.setState({
-					country: data.country
-				})
-				// console.log(data)
-				// console.log(data.country)
-			}
-		})
-	}
+
 	render () {
 		return (
 			<div className="choice-B-or-G">

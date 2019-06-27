@@ -1,0 +1,52 @@
+@import '../../assets/styles/scss/variable.scss';
+
+.small-card {
+  width: $scss_325px;
+  height: $scss_170px;
+  font-size: $scss_32px;
+  color: #fff;
+  position: relative;
+
+  .bg-border {
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    position: absolute;
+    background: url(./border.png) no-repeat top left;
+    background-size: 100% 100%;
+  }
+
+  .bg-color {
+    width: $scss_318px;
+    height: $scss_162px;
+    background-image: linear-gradient(90deg,
+      #00c8d5 0%,
+      #008ed5 100%),
+      linear-gradient(#008ed5,
+      #008ed5);
+    position: absolute;
+    top: $scss_10px;
+    left: $scss_10px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+
+    .left {
+      margin-right: $scss_16px;
+      margin-left: $scss_18px;
+
+      img {
+        width: $scss_74px;
+        height: $scss_77px;
+      }
+    }
+
+    .right {
+      .name {}
+
+      .desc {
+        font-size: $scss_22px;
+      }
+    }
+  }
+}

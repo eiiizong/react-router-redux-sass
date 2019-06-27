@@ -1,0 +1,58 @@
+@import '../../assets/styles/scss/variable.scss';
+
+.mask-hint {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .4);
+  position: fixed;
+  z-index: 10001;
+  top: 0;
+  left: 0;
+  color: #fff;
+  text-align: center;
+
+  .content {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .img-wrapper {
+    padding: 0;
+    margin-bottom: $scss_200px;
+
+    img {
+      display: inline-block;
+      width: $scss_384px;
+      height: $scss_408px;
+      margin: 0;
+    }
+  }
+
+  .btn-wrapper {
+    width: 100%;
+  }
+
+  button {
+    margin: auto;
+    width: $scss_224px;
+    height: $scss_64px;
+    border-radius: $scss_20px;
+    border: solid 1px #fff;
+    outline: 0;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: $scss_32px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      line-height: 1;
+    }
+  }
+}

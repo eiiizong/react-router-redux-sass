@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import TopNav from '../../components/TopNav'
 
-import axios from '../../utils/axios';
-
 import './index.scss';
 
-import logoIMG from '../../assets/images/logo-big.png'
-import contentIMG01 from '../../assets/images/index-01.jpg'
-
+import axios from '../../utils/axios';
 import qs from 'qs'
 
 class DemandDetail extends Component {
@@ -70,12 +65,10 @@ class DemandDetail extends Component {
 
 		axios.post('/list/detail', qs.stringify(data)).then(res => {
 			if (res.status === 200 && res.data.status === "200") {
-				const data = res.data
-				this.setState({
-					// info: data.info
-				})
-				console.log(data)
-				// console.log(data.country)
+				// const data = res.data
+				// this.setState({
+				// 	info: data.info
+				// })
 			}
 		})
 	}

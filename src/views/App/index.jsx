@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import './index.scss';
 
+import Audio from '../../components/Audio'
 import Home from '../../views/Home'
 import CityList from '../../views/CityList'
 import DemandDetail from '../../views/DemandDetail'
@@ -22,6 +23,7 @@ class App extends Component {
   render () {
     return (
       <Router>
+        <Audio></Audio>
         <Switch>
           <Route exact path='/' component={Home}></Route>
           <Route path='/citylist' component={CityList}></Route>
