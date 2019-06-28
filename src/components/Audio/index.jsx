@@ -29,7 +29,7 @@ class Audio extends Component {
     return (
       <div className="audio">
         <img className={audioIsPlay ? '' : 'paused'} src={musicIcon} alt="audio icon" onClick={this.handleAudioPlay} />
-        <audio src={audioUrl} controls autoPlay loop ref={audio => this.audio = audio}>
+        <audio src={audioUrl} controls loop ref={audio => this.audio = audio}>
           您的浏览器不支持 audio 标签。
         </audio>
       </div>

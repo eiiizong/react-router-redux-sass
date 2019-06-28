@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from '../../utils/axios';
 
 import './index.scss';
 import logoIMG from '../../assets/images/logo-big.png'
 
 import MaskHint from '../../components/MaskHint'
+import CityCard from '../../components/CityCard'
 
 class CityList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			country: [],
-			isShowMask: true
+			isShowMask: false
 		}
 	}
 	componentDidMount () {
@@ -25,9 +25,10 @@ class CityList extends Component {
 				this.setState({
 					country: data.country
 				})
-				// console.log(data)
-				// console.log(data.country)
+				console.log(data)
 			}
+		}).catch(err => {
+			console.log(err)
 		})
 	}
 	handleShowMask = () => {
@@ -46,29 +47,10 @@ class CityList extends Component {
 				<div className="content">
 					<ul>
 						{
-							country.map(item => {
+							country.map((item, index) => {
 								return (
-									<li className="" key={item.name_en}>
-										<div className="img-wrapper">
-											<img src={item.img} alt={item.name} />
-										</div>
-										<div className="info">
-											<p>
-												<span>{item.name}</span>
-												<span>{item.name_en}</span>
-											</p>
-											<div className="btn-wrapper">
-												<Link to={{
-													pathname: '/typelist',
-													query: {
-														cityName: item.name
-													}
-												}}>
-													<span className="bg"></span>
-													<span>点击进入</span>
-												</Link>
-											</div>
-										</div>
+									<li key={item.name_en}>
+										<CityCard className={index % 2 === 1 ? 'reverse' : 'common'} data={item} ></CityCard>
 									</li>
 								)
 							})

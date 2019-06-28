@@ -1,0 +1,86 @@
+@import '../../assets/styles/scss/variable.scss';
+
+.city-card {
+  display: block;
+  width: 100%;
+  height: $scss_200px;
+  font-size: $scss_32px;
+  color: #fff;
+  position: relative;
+  border: 1px solid #fff;
+  margin-bottom: $scss_96px;
+
+  img {
+    position: absolute;
+    width: $scss_214px;
+    height: $scss_214px;
+    top: -$scss_54px;
+  }
+
+  .inner-wrapper {
+    padding-top: $scss_28px;
+    padding-left: $scss_320px;
+
+    p {
+      font-size: $scss_36px;
+      font-weight: 700;
+      line-height: 1;
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: $scss_32px;
+
+      .name-zh {
+        font-size: $scss_24px;
+        padding-left: $scss_16px;
+      }
+    }
+
+    .link {
+      display: block;
+      color: #fff;
+      position: relative;
+      width: $scss_120px;
+      height: $scss_40px;
+      text-align: center;
+      font-size: $scss_22px;
+
+      span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #008ed5;
+        border: solid 1px #fff;
+        border-radius: $scss_5px;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        &.bg {
+          width: 100%;
+          height: 100%;
+          border-radius: $scss_5px;
+          position: relative;
+          background-color: #20f0ec;
+          top: 2px;
+          left: 2px;
+        }
+      }
+    }
+  }
+
+  &.common {
+    img {
+      left: $scss_40px;
+    }
+  }
+
+  &.reverse {
+    img {
+      right: $scss_40px;
+    }
+
+    .inner-wrapper {
+      padding-left: $scss_40px;
+    }
+  }
+}

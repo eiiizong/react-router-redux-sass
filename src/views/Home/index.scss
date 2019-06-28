@@ -70,11 +70,14 @@
     transform: translateX(-50%);
     background-color: #00baff;
     border-radius: $scss_10px;
-    color: #fff;
     font-size: $scss_32px;
     line-height: $scss_70px;
     outline: 0;
     padding: 0;
     border: 0;
+
+    a {
+      color: #fff;
+    }
   }
 }

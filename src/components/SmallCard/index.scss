@@ -1,6 +1,7 @@
 @import '../../assets/styles/scss/variable.scss';
 
 .small-card {
+  display: block;
   width: $scss_325px;
   height: $scss_170px;
   font-size: $scss_32px;
@@ -29,11 +30,12 @@
     left: $scss_10px;
     z-index: 1;
     display: flex;
-    align-items: center;
 
     .left {
-      margin-right: $scss_16px;
-      margin-left: $scss_18px;
+      position: absolute;
+      top: 50%;
+      left: $scss_16px;
+      margin-top: -$scss_40px;
 
       img {
         width: $scss_74px;
@@ -42,7 +44,14 @@
     }
 
     .right {
-      .name {}
+      padding: 0 5px 0 $scss_100px;
+      margin: auto;
+      position: relative;
+      top: -$scss_5px;
+
+      .name {
+        line-height: 1.2;
+      }
 
       .desc {
         font-size: $scss_22px;

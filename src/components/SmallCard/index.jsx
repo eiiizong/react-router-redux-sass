@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 import './index.scss'
 
 class SmallCard extends Component {
+  static defaultProps = {
+    data: {
+      cate: "服务实体经济服务实体经济",
+      cnt: "6",
+      img: "http://www.kbftech.cn/city/img/icon/fwst.png"
+    }
+  }
+  static propTypes = {
+    data: PropTypes.object.isRequired
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -11,8 +22,14 @@ class SmallCard extends Component {
   }
   componentDidMount () { }
   render () {
+    const linkTo = {
+      pathname: `/list`,
+      param: {
+        city_name: "111"
+      }
+    }
     return (
-      <div className="small-card">
+      <Link className="small-card" to={linkTo}>
         <div className="bg-border"></div>
         <div className="bg-color">
           <div className="left">
@@ -23,7 +40,7 @@ class SmallCard extends Component {
             <div className="desc">共{this.props.data.cnt}项</div>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 }

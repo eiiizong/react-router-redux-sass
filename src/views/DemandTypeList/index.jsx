@@ -21,19 +21,41 @@ class DemandTypeList extends Component {
 			supply_cnt: 0,
 			supply_list: [],
 			activeList: [],
-			isShowSearch: true
+			isShowSearch: false,
+			navIndex: 0
 		}
 	}
 	componentWillMount () {
-		console.log('typelist', this.props)
+
 	}
 	componentDidMount () {
-		const cityName = this.props.location.query ? this.props.location.query.cityName : ''
+		let cityName;
+		if (this.props.location.param) {
+			cityName = this.props.location.param.city_name
+		} else {
+			cityName = this._getCityNameToLocalStorage()
+		}
+		if (!!cityName) {
+			this._saveCityNameToLocalStorage(cityName)
+		}
+
 		this.requestAPI(cityName)
+		console.log('this.props => ', this.props)
+	}
+	changeNav = (index) => {
+		this.setState({
+			navIndex: index
+		})
+	}
+	_getCityNameToLocalStorage () {
+		return localStorage.getItem('CITY_NAME')
+	}
+	_saveCityNameToLocalStorage (value) {
+		localStorage.setItem('CITY_NAME', value)
 	}
 	requestAPI (cityName) {
 		const data = {
-			'city_name': cityName || '成都市'
+			'city_name': cityName
 		}
 		axios.post('/list/city', qs.stringify(data)).then(res => {
 			if (res.status === 200 && res.data.status === "200") {
@@ -51,9 +73,12 @@ class DemandTypeList extends Component {
 		})
 	}
 	render () {
-		// const activeList = this.state.activeList
-		const activeList = this.state.demand_list
-
+		let data;
+		if (this.state.navIndex === 0) {
+			data = this.state.demand_list
+		} else {
+			data = this.state.supply_list
+		}
 		return (
 			<div className="demand-type-list">
 				<div className="header">
@@ -70,16 +95,16 @@ class DemandTypeList extends Component {
 									</div>
 									<div className="nav">
 										<ul>
-											<li className="active">
+											<li className={this.state.navIndex === 0 ? 'active' : ''} onClick={this.changeNav.bind(this, 0)}>
 												<div className="link">
 													<span className="bg"></span>
-													<span>需求清单(6)</span>
+													<span>需求清单({this.state.demand_cnt})</span>
 												</div>
 											</li>
-											<li>
+											<li className={this.state.navIndex === 1 ? 'active' : ''} onClick={this.changeNav.bind(this, 1)}>
 												<div className="link">
 													<span className="bg"></span>
-													<span>供给清单(7)</span>
+													<span>供给清单({this.state.supply_cnt})</span>
 												</div>
 											</li>
 										</ul>
@@ -88,7 +113,7 @@ class DemandTypeList extends Component {
 								<div className="main">
 									<div className="card-wrapper">
 										{
-											activeList.map((item, index) => {
+											data.map((item, index) => {
 												return (
 													<div className="card-item" key={item.cate + index}>
 														<SmallCard data={item}></SmallCard>
