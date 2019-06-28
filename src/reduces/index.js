@@ -8,14 +8,14 @@ const chnageCityName = (state, action) => {
       cityName: '成都市'
     }
   }
+
   switch (action.type) {
-    case types.CITY_NAME:
-      return {
-        ...state,
-        cityName: action.cityName
-      }
-    default:
-      return state
+    case types.CITY_NAME: return {
+      ...state,
+      cityName: action.cityName
+    }
+
+    default: return state
   }
 }
 
