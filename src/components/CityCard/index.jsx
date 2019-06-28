@@ -27,7 +27,6 @@ class CityCard extends Component {
     console.log(this.props)
   }
   render () {
-    console.log(style)
     const data = this.props.data
     const pathTo = {
       pathname: `/typelist`,

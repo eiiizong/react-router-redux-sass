@@ -22,7 +22,9 @@ class DemandTypeList extends Component {
 			supply_list: [],
 			activeList: [],
 			isShowSearch: false,
-			navIndex: 0
+			navIndex: 0,
+			rightText: '筛选',
+			iconClassName: 'icon-filter'
 		}
 	}
 	componentWillMount () {
@@ -46,6 +48,27 @@ class DemandTypeList extends Component {
 		this.setState({
 			navIndex: index
 		})
+	}
+	handleTopNav = () => {
+		let rightText
+		let iconClassName
+		if (!this.state.isShowSearch) {
+			rightText = '关闭'
+			iconClassName = ''
+		} else {
+			rightText = '筛选'
+			iconClassName = 'icon-filter'
+		}
+		this.setState({
+			isShowSearch: !this.state.isShowSearch,
+			rightText,
+			iconClassName,
+		})
+
+	}
+	goBack = () => {
+		console.log(this.props)
+		this.props.history.goBack()
 	}
 	_getCityNameToLocalStorage () {
 		return localStorage.getItem('CITY_NAME')
@@ -82,7 +105,7 @@ class DemandTypeList extends Component {
 		return (
 			<div className="demand-type-list">
 				<div className="header">
-					<TopNav></TopNav>
+					<TopNav iconClassName={this.state.iconClassName} rightText={this.state.rightText} func={this.handleTopNav} goBack={this.goBack}></TopNav>
 				</div>
 				<div className="content">
 					{

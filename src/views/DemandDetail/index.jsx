@@ -53,22 +53,24 @@ class DemandDetail extends Component {
 		}
 	}
 	componentWillMount () {
-		console.log('detail =>', this)
+		console.log('detail =>', this.props)
 	}
 	componentDidMount () {
-		this.requestAPI()
+		const id = this.props.location.param.id
+		this.requestAPI(id)
 	}
-	requestAPI () {
+	requestAPI (id) {
 		const data = {
-			id: 200
+			id
 		}
 
 		axios.post('/list/detail', qs.stringify(data)).then(res => {
 			if (res.status === 200 && res.data.status === "200") {
-				// const data = res.data
-				// this.setState({
-				// 	info: data.info
-				// })
+				const data = res.data
+				this.setState({
+					// info: data.info
+				})
+				console.log(data)
 			}
 		})
 	}

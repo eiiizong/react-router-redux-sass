@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react';
 import TopNav from '../../components/TopNav'
 
 import axios from '../../utils/axios';
+import qs from 'qs';
 
 import './index.scss';
 
@@ -11,36 +12,50 @@ class DemandsList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			country: []
+			list: []
 		}
 	}
 	componentDidMount () {
 		this.requestAPI()
 	}
 	requestAPI () {
-		axios.post('/list/system').then(res => {
+		const data = {
+
+		}
+		axios.post('/list/demand', qs.stringify(data)).then(res => {
 			if (res.status === 200 && res.data.status === "200") {
 				const data = res.data
 				this.setState({
-					country: data.country
+					list: data.list
 				})
+				console.log(data)
 			}
 		})
 	}
+	linkToDeteil = (index) => {
+		const url = {
+			pathname: '/detail',
+			param: {
+				id: this.state.list[index].id
+			}
+		}
+		this.props.history.push(url)
+	}
 	render () {
+		const data = this.state.list
 		return (
 			<div className="demand-list">
 				<TopNav></TopNav>
 				<Fragment>
 					<div className="content">
 						{
-							[1, 1, 1, 1, 1, 11, 1, 1, 1, 1, 11,].map((item, index) => {
+							data.map((item, index) => {
 								return (
-									<div className="list-item" key={index}>
-										<div className="title">郫都区万云汇互联网娱乐云计算产业基地项目郫都区万云汇互联网娱乐云计算产业基地项目</div>
+									<div className="list-item" key={item.id} onClick={this.linkToDeteil.bind(this, index)}>
+										<div className="title">{item.name || item.carrier_name}</div>
 										<div className="info">
-											<span className="tag">融资需求</span>
-											<span>成都国民沃成半导体有限公司成都国民沃成半导体有限公司</span>
+											<span className="tag">{item.request_type || item.type}</span>
+											<span>{item.contact_company || item.scene}</span>
 										</div>
 									</div>
 								)

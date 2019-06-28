@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import './index.scss'
+import style from './index.module.scss'
 
 class TopNav extends Component {
+  static propTypes = {
+    iconClassName: PropTypes.string,
+    func: PropTypes.func,
+    title: PropTypes.string,
+    rightText: PropTypes.string
+  }
+  handle = () => {
+    if (this.props.func) {
+      this.props.func()
+    }
+  }
+  goBack = () => {
+    if (this.props.goBack) {
+      this.props.goBack()
+    }
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -10,15 +27,22 @@ class TopNav extends Component {
     }
   }
   render () {
+    const props = this.props
     return (
-      <div className="topNav">
-        <div className="left">
-          <i className="icon icon-back"></i>
+      <div className={style.topNav}>
+        <div className={style.left} onClick={this.goBack}>
+          <i className="iconfont icon-back"></i>
         </div>
-        <div className="center">rightText</div>
-        <div className="right">
-          <i className="icon icon-filtrate"></i>
-          <span v-if="rightText">rightText</span>
+        {
+          props.title ? <div className={style.center}></div> : null
+        }
+        <div className={style.right} onClick={this.handle}>
+          {
+            props.iconClassName ? <i className={'iconfont ' + props.iconClassName}></i> : null
+          }
+          {
+            props.rightText ? <span>{props.rightText}</span> : null
+          }
         </div>
       </div>
     );

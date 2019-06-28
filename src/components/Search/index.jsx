@@ -18,7 +18,7 @@ class Search extends Component {
         <div className="type-wrapper">
           <div className="type-item">
             <h3>城市</h3>
-            <div class="checkbox-group">
+            <div className="checkbox-group">
               <label>
                 <input type="checkbox" />
                 <span>item</span>
@@ -31,7 +31,7 @@ class Search extends Component {
           </div>
           <div className="type-item">
             <h3>城市</h3>
-            <div class="checkbox-group">
+            <div className="checkbox-group">
               <label>
                 <input type="checkbox" />
                 <span>item</span>
@@ -40,7 +40,7 @@ class Search extends Component {
           </div>
           <div className="type-item">
             <h3>城市</h3>
-            <div class="checkbox-group">
+            <div className="checkbox-group">
               <label>
                 <input type="checkbox" />
                 <span>item</span>
@@ -49,7 +49,7 @@ class Search extends Component {
           </div>
           <div className="type-item">
             <h3>城市</h3>
-            <div class="checkbox-group">
+            <div className="checkbox-group">
               <label>
                 <input type="checkbox" />
                 <span>item</span>
@@ -58,7 +58,7 @@ class Search extends Component {
           </div>
           <div className="type-item">
             <h3>城市</h3>
-            <div class="checkbox-group">
+            <div className="checkbox-group">
               <label>
                 <input type="checkbox" />
                 <span>item</span>
@@ -66,7 +66,7 @@ class Search extends Component {
             </div>
           </div>
         </div>
-        <div class="btn-wrapper">
+        <div className="btn-wrapper">
           <button>搜索</button>
         </div>
       </div>

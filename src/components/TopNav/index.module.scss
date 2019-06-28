@@ -1,0 +1,39 @@
+@import '../../assets/styles/scss/variable.scss';
+
+.topNav {
+  width: 100%;
+  background-color: #fff;
+  height: $scss_top-nav-height;
+  color: #000;
+  font-size: $scss_32px;
+  font-weight: 500;
+  position: relative;
+
+  .left {
+    position: absolute;
+    top: 50%;
+    left: $scss_30px;
+    transform: translateY(-50%);
+  }
+
+  .center {
+    padding: 0 $scss_200px;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: $scss_top-nav-height;
+  }
+
+  .right {
+    position: absolute;
+    top: 50%;
+    right: $scss_30px;
+    transform: translateY(-50%);
+
+    span {
+      padding-left: $scss_10px;
+    }
+  }
+}
