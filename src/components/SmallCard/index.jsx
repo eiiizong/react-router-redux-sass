@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import './index.scss'
+
+import style from './index.module.scss'
 
 class SmallCard extends Component {
   static defaultProps = {
@@ -29,15 +30,15 @@ class SmallCard extends Component {
       }
     }
     return (
-      <Link className="small-card" to={linkTo}>
-        <div className="bg-border"></div>
-        <div className="bg-color">
-          <div className="left">
+      <Link className={style.card} to={linkTo}>
+        <div className={style.bgBorder}></div>
+        <div className={style.bgColor}>
+          <div className={style.left}>
             <img src={this.props.data.img} alt={this.props.data.cate} />
           </div>
-          <div className="right">
-            <div className="name">{this.props.data.cate}</div>
-            <div className="desc">共{this.props.data.cnt}项</div>
+          <div className={style.right}>
+            <div className={style.name}>{this.props.data.cate}</div>
+            <div className={style.desc}>共{this.props.data.cnt}项</div>
           </div>
         </div>
       </Link>

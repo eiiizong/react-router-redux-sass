@@ -1,6 +1,6 @@
 @import '../../assets/styles/scss/variable.scss';
 
-.small-card {
+.card {
   display: block;
   width: $scss_325px;
   height: $scss_170px;
@@ -8,7 +8,7 @@
   color: #fff;
   position: relative;
 
-  .bg-border {
+  .bgBorder {
     width: 100%;
     height: 100%;
     z-index: 2;
@@ -17,7 +17,7 @@
     background-size: 100% 100%;
   }
 
-  .bg-color {
+  .bgColor {
     width: $scss_318px;
     height: $scss_162px;
     background-image: linear-gradient(90deg,
@@ -48,14 +48,14 @@
       margin: auto;
       position: relative;
       top: -$scss_5px;
+    }
 
-      .name {
-        line-height: 1.2;
-      }
+    .name {
+      line-height: 1.2;
+    }
 
-      .desc {
-        font-size: $scss_22px;
-      }
+    .desc {
+      font-size: $scss_22px;
     }
   }
 }

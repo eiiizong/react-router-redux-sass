@@ -11,7 +11,7 @@ class TopNav extends Component {
   }
   render () {
     return (
-      <div className="top-nav">
+      <div className="topNav">
         <div className="left">
           <i className="icon icon-back"></i>
         </div>

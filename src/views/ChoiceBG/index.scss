@@ -1,16 +1,79 @@
 @import '../../assets/styles/scss/variable.scss';
 
-.detail {
+.choice {
   width: 100%;
-  min-height: 100%;
-  background: url(../../assets/images/bg.jpg) no-repeat left bottom;
-  background-size: 100% 100%;
-  color: #fff;
-  font-size: $scss_24px;
-  line-height: $scss_36px;
-  padding: 0 $scss_56px;
-  padding-bottom: $scss_120px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  height: 100%;
+
+  .content {
+    width: 100%;
+    height: 100%;
+    background: url(../../assets/images/bg.jpg) no-repeat left bottom;
+    background-size: 100% 100%;
+    color: #fff;
+    display: flex;
+  }
+
+  nav {
+    margin: auto;
+  }
+
+  li {
+    margin-bottom: $scss_90px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .link {
+    display: block;
+    width: $scss_548px;
+    height: $scss_220px;
+    margin: auto;
+    position: relative;
+  }
+
+  .border {
+    width: 100%;
+    height: 100%;
+    background: url(../../assets/images/border-bg-big.png) no-repeat top left;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+
+  .bgc {
+    width: $scss_536px;
+    height: $scss_210px;
+    background-image: linear-gradient(90deg,
+      #00c8d5 0%,
+      #008ed5 100%),
+      linear-gradient(#008ed5,
+      #008ed5);
+    position: absolute;
+    top: $scss_12px;
+    left: $scss_12px;
+  }
+
+  .left {
+    position: absolute;
+    top: $scss_52px;
+    left: $scss_76px;
+  }
+
+  img {
+    width: $scss_90px;
+    height: $scss_84px;
+  }
+
+  .right {
+    padding-left: $scss_220px;
+    color: #fff;
+    font-size: $scss_32px;
+    line-height: $scss_40px;
+    font-weight: 700;
+    padding-top: $scss_64px;
+  }
 }

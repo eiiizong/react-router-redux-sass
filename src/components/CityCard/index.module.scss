@@ -1,6 +1,6 @@
 @import '../../assets/styles/scss/variable.scss';
 
-.city-card {
+.card {
   display: block;
   width: 100%;
   height: $scss_200px;
@@ -17,7 +17,7 @@
     top: -$scss_54px;
   }
 
-  .inner-wrapper {
+  .wrapper {
     padding-top: $scss_28px;
     padding-left: $scss_320px;
 
@@ -79,7 +79,7 @@
       right: $scss_40px;
     }
 
-    .inner-wrapper {
+    .wrapper {
       padding-left: $scss_40px;
     }
   }

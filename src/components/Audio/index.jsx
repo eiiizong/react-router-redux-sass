@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './index.scss'
+import style from './index.module.scss'
 
 import musicIcon from './music.png'
 
@@ -27,7 +27,7 @@ class Audio extends Component {
     const audioUrl = this.state.audioUrl
     const audioIsPlay = this.state.audioIsPlay
     return (
-      <div className="audio">
+      <div className={style.audio}>
         <img className={audioIsPlay ? '' : 'paused'} src={musicIcon} alt="audio icon" onClick={this.handleAudioPlay} />
         <audio src={audioUrl} controls loop ref={audio => this.audio = audio}>
           您的浏览器不支持 audio 标签。

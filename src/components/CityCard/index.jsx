@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
-import './index.scss'
+import style from './index.module.scss'
 
 class CityCard extends Component {
   static propTypes = {
@@ -27,6 +27,7 @@ class CityCard extends Component {
     console.log(this.props)
   }
   render () {
+    console.log(style)
     const data = this.props.data
     const pathTo = {
       pathname: `/typelist`,
@@ -34,16 +35,22 @@ class CityCard extends Component {
         city_name: data.name
       }
     }
+    let addClassName;
+    if (this.props.className === 'common') {
+      addClassName = style.common
+    } else {
+      addClassName = style.reverse
+    }
     return (
-      <div className={this.props.className + ' city-card'}>
+      <div className={style.card + ' ' + addClassName}>
         <img src={data.img} alt={data.name} />
-        <div className="inner-wrapper">
-          <p className="city-name">
-            <span className="name">{data.name}</span>
-            <span className="name-zh">{data.name_en}</span>
+        <div className={style.wrapper}>
+          <p>
+            <span>{data.name}</span>
+            <span className={style['name-zh']}>{data.name_en}</span>
           </p>
-          <Link to={pathTo} className="link">
-            <span className="bg"></span>
+          <Link to={pathTo} className={style.link}>
+            <span className={style.bg}></span>
             <span>立即进入</span>
           </Link>
         </div>
