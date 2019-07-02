@@ -1,22 +1,20 @@
-const types = {
-  CITY_NAME: 'CITY_NAME'
-}
+import { HANDLE_AUDIO_PLAY } from '../constants'
 
-const chnageCityName = (state, action) => {
+const handleAudioIsPlay = (state, action) => {
   if (!state) {
     return {
-      cityName: '成都市'
+      audioIsPlay: true
     }
   }
-
   switch (action.type) {
-    case types.CITY_NAME: return {
-      ...state,
-      cityName: action.cityName
-    }
+    case HANDLE_AUDIO_PLAY:
+      return {
+        ...state,
+        audioIsPlay: !state.audioIsPlay
+      }
 
     default: return state
   }
 }
 
-export default chnageCityName
+export default handleAudioIsPlay

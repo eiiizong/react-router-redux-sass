@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import './index.scss';
 
-import Audio from '../../components/Audio'
+import AudioContainer from '../../containers/AudioContainer'
 import Home from '../../views/Home'
 import CityList from '../../views/CityList'
 import DemandDetail from '../../views/DemandDetail'
@@ -14,16 +14,15 @@ import NotFound from '../../views/NotFound'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tree: ''
-    }
+    this.state = {}
   }
   componentDidMount () {
+    console.log('app => ', this)
   }
   render () {
     return (
       <Router>
-        <Audio></Audio>
+        <AudioContainer></AudioContainer>
         <Switch>
           <Route exact path='/' component={Home}></Route>
           <Route path='/citylist' component={CityList}></Route>

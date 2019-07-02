@@ -1,35 +1,46 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import style from './index.module.scss'
-
 import musicIcon from './music.png'
+import music from '../../assets/media/C400003QDxkV0TslrO.m4a'
 
 class Audio extends Component {
+  static propTypes = {
+    audioIsPlay: PropTypes.bool.isRequired,
+    handleAudioPlay: PropTypes.func.isRequired,
+    audioUrl: PropTypes.string.isRequired
+  }
+  static defaultProps = {
+    audioIsPlay: true,
+    audioUrl: music,
+    handleAudioPlay: () => { }
+  }
   constructor(props) {
     super(props);
-    this.state = {
-      audioUrl: 'http://125.74.6.16/amobile.music.tc.qq.com/C400001tocuz07PLX4.m4a?guid=1261617422&vkey=48458F3C5CBC2B11A012CE0EF362502F3B796011865724B1103FA703D7D38D42842902CA16C25FD7F8E48DE00119BA5A0EC036E0CD6706FB&uin=1810&fromtag=66',
-      audioIsPlay: true
-    }
+    this.audioRef = React.createRef()
   }
-  componentDidMount () { }
+  componentDidMount () {
+    console.log('Audio => ', this)
+  }
   handleAudioPlay = () => {
-    if (!this.state.audioIsPlay) {
-      this.audio.play()
-    } else {
-      this.audio.pause()
+    const { handleAudioPlay, audioIsPlay } = this.props
+    if (handleAudioPlay) {
+      if (audioIsPlay) {
+        this.audioRef.current.pause()
+      } else {
+        this.audioRef.current.play()
+      }
+      handleAudioPlay()
     }
-    this.setState({
-      audioIsPlay: !this.state.audioIsPlay
-    })
   }
   render () {
-    const audioUrl = this.state.audioUrl
-    const audioIsPlay = this.state.audioIsPlay
+    const { audioUrl, audioIsPlay } = this.props
+    console.log(audioIsPlay)
     return (
       <div className={style.audio}>
-        <img className={audioIsPlay ? '' : 'paused'} src={musicIcon} alt="audio icon" onClick={this.handleAudioPlay} />
-        <audio src={audioUrl} controls loop ref={audio => this.audio = audio}>
+        <img className={audioIsPlay ? '' : style.paused} src={musicIcon} alt="audio icon" onClick={this.handleAudioPlay} />
+        <audio src={audioUrl} controls loop ref={this.audioRef}>
           您的浏览器不支持 audio 标签。
         </audio>
       </div>
