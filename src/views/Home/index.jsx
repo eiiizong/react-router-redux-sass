@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Transition } from 'react-transition-group';
 
 import { Link } from 'react-router-dom';
 import axios from '../../utils/axios';
@@ -34,10 +35,12 @@ class Home extends Component {
 		return (
 			<div className="home">
 				<div className="title">
-					<div className="left">
-						<i className="icon"></i>
-						<span>城市机会</span>
-					</div>
+					<Transition in={true} timeout={500}>
+						<div className="left">
+							<i className="icon"></i>
+							<span>城市机会</span>
+						</div>
+					</Transition>
 					<div className="right">
 						<img src={logoIMG} alt="logo" />
 					</div>
