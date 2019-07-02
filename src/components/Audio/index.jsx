@@ -36,7 +36,6 @@ class Audio extends Component {
   }
   render () {
     const { audioUrl, audioIsPlay } = this.props
-    console.log(audioIsPlay)
     return (
       <div className={style.audio}>
         <img className={audioIsPlay ? '' : style.paused} src={musicIcon} alt="audio icon" onClick={this.handleAudioPlay} />

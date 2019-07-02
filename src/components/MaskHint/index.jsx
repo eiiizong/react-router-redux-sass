@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 
-import hintImg from './hint.png'
+import PropTypes from 'prop-types';
 
-import './index.scss'
+import hintImg from './hint.png'
+import style from './index.module.scss'
 
 // 遮罩层 提示
 
 class MaskHint extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isShowMask: true
-    }
+  static propTypes = {
+    handleShowMask: PropTypes.func.isRequired
   }
   handleShowMask = () => {
     if (this.props.handleShowMask) {
@@ -20,12 +18,12 @@ class MaskHint extends Component {
   }
   render () {
     return (
-      <div className="mask-hint">
-        <div className="content">
-          <div className="img-wrapper">
+      <div className={style['mask-hint']}>
+        <div className={style.content}>
+          <div className={style['img-wrapper']}>
             <img src={hintImg} alt="hint img" />
           </div>
-          <div className="btn-wrapper">
+          <div className={style['btn-wrapper']}>
             <button onClick={this.handleShowMask}>
               <span>知道了</span>
             </button>

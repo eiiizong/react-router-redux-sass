@@ -4,18 +4,18 @@ import axios from '../../utils/axios';
 import './index.scss';
 import logoIMG from '../../assets/images/logo-big.png'
 
-import MaskHint from '../../components/MaskHint'
-import CityCard from '../../components/CityCard'
+import MaskHintContainer from '../../containers/MaskHintContainer'
+import CityCardContainer from '../../containers/CityCardContainer'
 
 class CityList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			country: [],
-			isShowMask: false
+			country: []
 		}
 	}
 	componentDidMount () {
+		console.log(this)
 		this.requestAPI()
 	}
 	requestAPI () {
@@ -31,11 +31,7 @@ class CityList extends Component {
 			console.log(err)
 		})
 	}
-	handleShowMask = () => {
-		this.setState({
-			isShowMask: !this.state.isShowMask
-		})
-	}
+
 	render () {
 		const country = this.state.country
 		return (
@@ -50,16 +46,15 @@ class CityList extends Component {
 							country.map((item, index) => {
 								return (
 									<li key={item.name_en}>
-										<CityCard className={index % 2 === 1 ? 'reverse' : 'common'} data={item} ></CityCard>
+										<CityCardContainer className={index % 2 === 1 ? 'reverse' : 'common'} data={item} history={this.props.history}></CityCardContainer>
 									</li>
 								)
 							})
 						}
 					</ul>
 				</div>
-				{
-					this.state.isShowMask ? <MaskHint handleShowMask={this.handleShowMask}></MaskHint> : null
-				}
+				{/* 遮罩层提示 */}
+				<MaskHintContainer keyWord='cityListMaskHint'></MaskHintContainer>
 			</div>
 		);
 	}

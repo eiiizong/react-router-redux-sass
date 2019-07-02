@@ -1,9 +1,10 @@
-import { HANDLE_AUDIO_PLAY } from '../constants'
+import { HANDLE_AUDIO_PLAY, CITY_NAME } from '../constants'
 
 const handleAudioIsPlay = (state, action) => {
   if (!state) {
     return {
-      audioIsPlay: true
+      audioIsPlay: true,
+      city_name: '成都市'
     }
   }
   switch (action.type) {
@@ -12,7 +13,11 @@ const handleAudioIsPlay = (state, action) => {
         ...state,
         audioIsPlay: !state.audioIsPlay
       }
-
+    case CITY_NAME:
+      return {
+        ...state,
+        city_name: action.city_name
+      }
     default: return state
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-// import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import TopNav from '../../components/TopNav';
 import SmallCard from '../../components/SmallCard';
@@ -31,6 +31,7 @@ class DemandTypeList extends Component {
 
 	}
 	componentDidMount () {
+		console.log(this.props)
 		let cityName;
 		if (this.props.location.param) {
 			cityName = this.props.location.param.city_name
@@ -154,4 +155,19 @@ class DemandTypeList extends Component {
 	}
 }
 
-export default DemandTypeList;
+const mapStateToProps = (state) => {
+	return {
+		city_name: state.city_name
+	}
+}
+
+// const mapDispatchToProps = (dispatch, ownProps) => {
+// 	return {
+// 		changeCityName: (value) => {
+// 			dispatch(createChangeCityNameAction(value))
+// 		}
+// 	}
+// }
+
+
+export default connect(mapStateToProps, null)(DemandTypeList)

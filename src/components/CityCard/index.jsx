@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 import style from './index.module.scss'
@@ -7,7 +6,8 @@ import style from './index.module.scss'
 class CityCard extends Component {
   static propTypes = {
     className: PropTypes.string.isRequired,
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    linkToDemandPage: PropTypes.func.isRequired
   }
   static defaultProps = {
     className: 'common',
@@ -17,25 +17,18 @@ class CityCard extends Component {
       name_en: "Chengdu"
     }
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'E'
-    }
-  }
   componentDidMount () {
-    console.log(this.props)
+  }
+  linkToDemandPage = () => {
+    const { linkToDemandPage } = this.props
+    if (linkToDemandPage) {
+      linkToDemandPage()
+    }
   }
   render () {
-    const data = this.props.data
-    const pathTo = {
-      pathname: `/typelist`,
-      param: {
-        city_name: data.name
-      }
-    }
+    const { className, data } = this.props
     let addClassName;
-    if (this.props.className === 'common') {
+    if (className === 'common') {
       addClassName = style.common
     } else {
       addClassName = style.reverse
@@ -48,10 +41,10 @@ class CityCard extends Component {
             <span>{data.name}</span>
             <span className={style['name-zh']}>{data.name_en}</span>
           </p>
-          <Link to={pathTo} className={style.link}>
+          <div className={style.link} onClick={this.linkToDemandPage}>
             <span className={style.bg}></span>
             <span>立即进入</span>
-          </Link>
+          </div>
         </div>
       </div>
     );
