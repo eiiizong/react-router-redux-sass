@@ -4,7 +4,7 @@ const handleAudioIsPlay = (state, action) => {
   if (!state) {
     return {
       audioIsPlay: true,
-      city_name: '成都市'
+      city_name: ''
     }
   }
   switch (action.type) {

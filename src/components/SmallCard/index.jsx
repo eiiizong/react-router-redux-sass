@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 import style from './index.module.scss'
@@ -13,24 +12,18 @@ class SmallCard extends Component {
     }
   }
   static propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    linkToDemandList: PropTypes.func.isRequired
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'E'
+  linkToDemandList = () => {
+    const { linkToDemandList } = this.props
+    if (typeof linkToDemandList === 'function' && linkToDemandList) {
+      linkToDemandList()
     }
   }
-  componentDidMount () { }
   render () {
-    const linkTo = {
-      pathname: `/list`,
-      param: {
-        city_name: "111"
-      }
-    }
     return (
-      <Link className={style.card} to={linkTo}>
+      <div className={style.card} onClick={this.linkToDemandList}>
         <div className={style.bgBorder}></div>
         <div className={style.bgColor}>
           <div className={style.left}>
@@ -41,7 +34,7 @@ class SmallCard extends Component {
             <div className={style.desc}>共{this.props.data.cnt}项</div>
           </div>
         </div>
-      </Link>
+      </div>
     );
   }
 }

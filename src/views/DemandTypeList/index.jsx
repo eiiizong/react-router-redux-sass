@@ -15,6 +15,7 @@ class DemandTypeList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			city_name: '',
 			country: [],
 			demand_cnt: 0,
 			demand_list: [],
@@ -27,29 +28,41 @@ class DemandTypeList extends Component {
 			iconClassName: 'icon-filter'
 		}
 	}
-	componentWillMount () {
-
+	linkToDemandList = () => {
+		const { city_name, navIndex } = this.state
+		let path;
+		if (city_name === '成都市' && navIndex === 0) {
+			path = {
+				pathname: '/choice'
+			}
+		} else {
+			path = {
+				pathname: '/list'
+			}
+		}
+		this.props.history.push(path)
 	}
 	componentDidMount () {
-		console.log(this.props)
-		let cityName;
-		if (this.props.location.param) {
-			cityName = this.props.location.param.city_name
-		} else {
-			cityName = this._getCityNameToLocalStorage()
-		}
-		if (!!cityName) {
-			this._saveCityNameToLocalStorage(cityName)
+		let { city_name } = this.props
+
+		if (!city_name) {
+			city_name = this._getCityNameToLocalStorage()
 		}
 
-		this.requestAPI(cityName)
-		console.log('this.props => ', this.props)
+		this.requestAPI(city_name)
+		this.setState({
+			city_name
+		})
+		this._saveCityNameToLocalStorage(city_name)
+		console.log(this)
 	}
+
 	changeNav = (index) => {
 		this.setState({
 			navIndex: index
 		})
 	}
+
 	handleTopNav = () => {
 		let rightText
 		let iconClassName
@@ -65,18 +78,19 @@ class DemandTypeList extends Component {
 			rightText,
 			iconClassName,
 		})
-
 	}
+
 	goBack = () => {
-		console.log(this.props)
-		this.props.history.goBack()
+		const { history } = this.props
+		history.goBack()
 	}
 	_getCityNameToLocalStorage () {
-		return localStorage.getItem('CITY_NAME')
+		return JSON.parse(localStorage.getItem('CITY_NAME'))
 	}
 	_saveCityNameToLocalStorage (value) {
-		localStorage.setItem('CITY_NAME', value)
+		localStorage.setItem('CITY_NAME', JSON.stringify(value))
 	}
+
 	requestAPI (cityName) {
 		const data = {
 			'city_name': cityName
@@ -140,7 +154,7 @@ class DemandTypeList extends Component {
 											data.map((item, index) => {
 												return (
 													<div className="card-item" key={item.cate + index}>
-														<SmallCard data={item}></SmallCard>
+														<SmallCard data={item} linkToDemandList={this.linkToDemandList}></SmallCard>
 													</div>
 												)
 											})
