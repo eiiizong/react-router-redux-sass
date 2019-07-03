@@ -7,6 +7,7 @@ class TopNav extends Component {
   static propTypes = {
     iconClassName: PropTypes.string,
     func: PropTypes.func,
+    goback: PropTypes.func,
     title: PropTypes.string,
     rightText: PropTypes.string
   }
@@ -34,7 +35,7 @@ class TopNav extends Component {
           <i className="iconfont icon-back"></i>
         </div>
         {
-          props.title ? <div className={style.center}></div> : null
+          props.title ? <div className={style.center}>{props.title}</div> : null
         }
         <div className={style.right} onClick={this.handle}>
           {

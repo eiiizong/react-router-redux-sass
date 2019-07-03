@@ -12,95 +12,91 @@ class DemandDetail extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			info: [
-				{
-					id: 0,
-					title: '需求需要',
-					desc: '利用现有厂房62333.49平米，项目总投资1亿元，将建成3条产线1.6吋单晶碳化硅单晶衬底研发线年产6吋碳化硅衬底2000 片2.6外延片生产线：6寸氮化镓外延片 2万片/年8英寸Si-GaN（功率电子+LED）1万片/年；6 英寸 GaAS+GaN1 万片/年 150000'
-				},
-				{
-					id: 88,
-					title: '需求需要',
-					desc: '利用现有厂房62333.49平米，项目总投资1亿元，将建成3条产线1.6吋单晶碳化硅单晶衬底研发线年产6吋碳化硅衬底2000 片2.6外延片生产线：6寸氮化镓外延片 2万片/年8英寸Si-GaN（功率电子+LED）1万片/年；6 英寸 GaAS+GaN1 万片/年 150000'
-				},
-				{
-					id: 99,
-					title: '需求需要',
-					desc: '利用现有厂房62333.49平米，项目总投资1亿元，将建成3条产线1.6吋单晶碳化硅单晶衬底研发线年产6吋碳化硅衬底2000 片2.6外延片生产线：6寸氮化镓外延片 2万片/年8英寸Si-GaN（功率电子+LED）1万片/年；6 英寸 GaAS+GaN1 万片/年 150000'
-				},
-				{
-					id: 1,
-					title: '总投资额',
-					desc: '150000万元 '
-				},
-				{
-					id: 2,
-					title: '融资需求',
-					desc: '5000万元 '
-				},
-				{
-					id: 3,
-					title: '联系方式',
-					desc: '成都国民天成半导体有限公司',
-					contact: '张站峰  13880813191'
-				},
-				{
-					id: 4,
-					title: '建设模式',
-					desc: '政府和企业出资共建'
-				}
-			]
+			data: [],
+			info: {}
 		}
 	}
 	componentWillMount () {
 		console.log('detail =>', this.props)
 	}
 	componentDidMount () {
-		const id = this.props.location.param.id
+		const id = this.props.match.params.id
 		this.requestAPI(id)
 	}
 	requestAPI (id) {
 		const data = {
 			id
 		}
-
-		axios.post('/list/detail', qs.stringify(data)).then(res => {
-			if (res.status === 200 && res.data.status === "200") {
-				const data = res.data
-				this.setState({
-					// info: data.info
-				})
-				console.log(data)
+		const getDetail = () => {
+			return axios.post('/list/detail', qs.stringify(data))
+		}
+		const getSystem = () => {
+			return axios.post('/list/system')
+		}
+		axios.all([getDetail(), getSystem()]).then(axios.spread((acct, perms) => {
+			if (acct.status === 200 && acct.data.status === '200') {
+				if (perms.status === 200 && perms.data.status === '200') {
+					const filed = perms.data.filed
+					const info = acct.data.info
+					const detailAttr = Object.keys(info)
+					const filedAttr = Object.keys(filed)
+					let arr = []
+					let i = 0
+					for (let detailIndex in detailAttr) {
+						for (let filedIndex in filedAttr) {
+							if (detailAttr[detailIndex] === filedAttr[filedIndex] && info[detailAttr[detailIndex]] && filed[filedAttr[filedIndex]]) {
+								arr[i++] = {
+									name: filed[filedAttr[filedIndex]],
+									value: info[detailAttr[detailIndex]]
+								}
+							}
+						}
+					}
+					this.setState({
+						data: arr,
+						info
+					})
+					console.log(info)
+				}
 			}
-		})
+		}))
+	}
+	goBack = () => {
+		const { history } = this.props
+		history.goBack()
+	}
+	handleGoHome = () => {
+		const { history } = this.props
+		const url = {
+			pathname: '/citylist'
+		}
+		history.push(url)
 	}
 	render () {
-		const info = this.state.info
-		// const data = Object.keys(info)
-		// console.log(data)
+		const { data, info } = this.state
 		return (
 			<div className="demand-detail">
 				<div className="top">
-					<TopNav />
+					<TopNav goBack={this.goBack} func={this.handleGoHome} title={info.name || info.carrier_name} rightText="回到首页" iconClassName="icon-home" />
 					<div className="info">
-						<div className="title">郫都区万云汇互联网娱乐云计算产业基地项目</div>
+						<div className="title">{info.name || info.carrier_name}</div>
 						<div className="name">
-							<span className="tag">融资需求</span>
-							<span>成都国民沃成半导体有限公司</span>
+							<span className="tag">{info.request_type || info.type}</span>
+							<span>{info.contact_company || info.scene}</span>
 						</div>
 					</div>
 				</div>
 				<div className="content">
 					<ul>
 						{
-							info.map((item, index) => {
+							data.map((item, index) => {
 								return (
-									<li key={item.id}>
+									<li key={item + index}>
 										<div className="left">
-											<span>【{item.title}】</span>
+											<span>【{item.name}】</span>
 										</div>
 										<div className="right">
-											<span>{item.desc}</span>
+											<span>{item.value}</span>
 										</div>
 									</li>
 								)

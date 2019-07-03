@@ -27,7 +27,7 @@ class App extends Component {
           <Route exact path='/' component={Home}></Route>
           <Route path='/citylist' component={CityList}></Route>
           <Route path='/choice' component={ChoiceBG}></Route>
-          <Route path='/detail' component={DemandDetail}></Route>
+          <Route path='/detail/:id' component={DemandDetail}></Route>
           <Route path='/list' component={DemandsList}></Route>
           <Route path='/typelist' component={DemandTypeList}></Route>
           <Route component={NotFound}></Route>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 
 import PropTypes from 'prop-types';
-import { CITY_NAME } from '../../constants'
 
 import CityCard from '../../components/CityCard'
 
@@ -19,17 +17,15 @@ class CityCardContainer extends Component {
     }
   }
 
-  componentDidMount () {
-    console.log(this.props)
-  }
+  componentDidMount () { }
 
   linkToDemandPage = () => {
     const { data, history } = this.props
+    const pathname = encodeURI(`/typelist?city_name=${data.name}`)
+    console.log(pathname)
     const path = {
-      pathname: '/typelist'
+      pathname
     }
-
-    this.props.changeCityName(data.name)
     history.push(path)
   }
 
@@ -42,19 +38,4 @@ class CityCardContainer extends Component {
 }
 
 
-const createChangeCityNameAction = (value) => {
-  return {
-    type: CITY_NAME,
-    city_name: value
-  }
-}
-
-const mapDisPatchToProps = (dispatch, ownProps) => {
-  return {
-    changeCityName: (value) => {
-      dispatch(createChangeCityNameAction(value))
-    }
-  }
-}
-
-export default connect(null, mapDisPatchToProps)(CityCardContainer)
+export default CityCardContainer

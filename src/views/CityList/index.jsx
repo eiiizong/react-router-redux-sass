@@ -15,17 +15,15 @@ class CityList extends Component {
 		}
 	}
 	componentDidMount () {
-		console.log(this)
 		this.requestAPI()
 	}
 	requestAPI () {
 		axios.post('/list/system').then(res => {
 			if (res.status === 200 && res.data.status === "200") {
-				const data = res.data
+				const { country } = res.data
 				this.setState({
-					country: data.country
+					country
 				})
-				console.log(data)
 			}
 		}).catch(err => {
 			console.log(err)
@@ -33,7 +31,7 @@ class CityList extends Component {
 	}
 
 	render () {
-		const country = this.state.country
+		const { country } = this.state
 		return (
 			<div className="city-list">
 				<div className="img-wrapper">

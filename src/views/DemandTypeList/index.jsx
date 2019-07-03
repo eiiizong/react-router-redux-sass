@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 import TopNav from '../../components/TopNav';
 import SmallCard from '../../components/SmallCard';
-import Search from '../../components/Search';
+import SearchContainer from '../../containers/SearchContainer';
 
 import axios from '../../utils/axios';
+import getUrlParams from '../../utils/getUrlParams';
 import qs from 'qs'
 
 import './index.scss';
@@ -16,50 +17,68 @@ class DemandTypeList extends Component {
 		super(props);
 		this.state = {
 			city_name: '',
+			// 1 需求 2 供给
+			type: 1,
 			country: [],
 			demand_cnt: 0,
 			demand_list: [],
 			supply_cnt: 0,
 			supply_list: [],
-			activeList: [],
 			isShowSearch: false,
-			navIndex: 0,
 			rightText: '筛选',
-			iconClassName: 'icon-filter'
+			iconClassName: 'icon-filter',
+			city: [],
+			cate: []
 		}
 	}
 	linkToDemandList = () => {
-		const { city_name, navIndex } = this.state
-		let path;
-		if (city_name === '成都市' && navIndex === 0) {
-			path = {
-				pathname: '/choice'
-			}
+		const { city_name, type } = this.state
+		let url, pathname;
+		if (city_name === '成都市' && type === 1) {
+			pathname = `/choice?type=${type}&city_name=${city_name}`
 		} else {
-			path = {
-				pathname: '/list'
-			}
+			pathname = `/list?type=${type}&city_name=${city_name}`
 		}
-		this.props.history.push(path)
+		url = { pathname }
+		this.props.history.push(url)
 	}
+
 	componentDidMount () {
-		let { city_name } = this.props
-
-		if (!city_name) {
-			city_name = this._getCityNameToLocalStorage()
-		}
-
+		const param = this.props.location.search;
+		const params = getUrlParams(param)
+		let { city_name } = params
 		this.requestAPI(city_name)
+
 		this.setState({
 			city_name
 		})
-		this._saveCityNameToLocalStorage(city_name)
-		console.log(this)
 	}
-
-	changeNav = (index) => {
+	initCity = (city) => {
+		const arr = city.map(item => {
+			return {
+				name: item,
+				checked: false
+			}
+		})
 		this.setState({
-			navIndex: index
+			city: arr
+		})
+	}
+	initCate = (cate) => {
+		const arr = cate.map(item => {
+			return {
+				name: item,
+				checked: false
+			}
+		})
+		this.setState({
+			cate: arr
+		})
+	}
+	changeNav = (index) => {
+		const type = index + 1
+		this.setState({
+			type
 		})
 	}
 
@@ -69,6 +88,8 @@ class DemandTypeList extends Component {
 		if (!this.state.isShowSearch) {
 			rightText = '关闭'
 			iconClassName = ''
+			this.requestSystemAPI()
+
 		} else {
 			rightText = '筛选'
 			iconClassName = 'icon-filter'
@@ -84,13 +105,6 @@ class DemandTypeList extends Component {
 		const { history } = this.props
 		history.goBack()
 	}
-	_getCityNameToLocalStorage () {
-		return JSON.parse(localStorage.getItem('CITY_NAME'))
-	}
-	_saveCityNameToLocalStorage (value) {
-		localStorage.setItem('CITY_NAME', JSON.stringify(value))
-	}
-
 	requestAPI (cityName) {
 		const data = {
 			'city_name': cityName
@@ -110,9 +124,23 @@ class DemandTypeList extends Component {
 			console.log(err)
 		})
 	}
+	requestSystemAPI (cityName) {
+		axios.post('/list/system').then(res => {
+			if (res.status === 200 && res.data.status === "200") {
+				this.initCity(res.data.city)
+				this.initCate(res.data.cate)
+				console.log(res.data)
+			}
+		}).catch(err => {
+			console.log(err)
+		})
+	}
 	render () {
 		let data;
-		if (this.state.navIndex === 0) {
+		const { type, city, cate } = this.state
+		const { history } = this.props
+
+		if (type === 1) {
 			data = this.state.demand_list
 		} else {
 			data = this.state.supply_list
@@ -125,7 +153,7 @@ class DemandTypeList extends Component {
 				<div className="content">
 					{
 						this.state.isShowSearch ?
-							<Search></Search> :
+							<SearchContainer history={history} city={city} cate={cate}></SearchContainer> :
 							<Fragment>
 								<div className="top">
 									<div className="img-wrapper">
@@ -133,13 +161,13 @@ class DemandTypeList extends Component {
 									</div>
 									<div className="nav">
 										<ul>
-											<li className={this.state.navIndex === 0 ? 'active' : ''} onClick={this.changeNav.bind(this, 0)}>
+											<li className={type === 1 ? 'active' : ''} onClick={this.changeNav.bind(this, 0)}>
 												<div className="link">
 													<span className="bg"></span>
 													<span>需求清单({this.state.demand_cnt})</span>
 												</div>
 											</li>
-											<li className={this.state.navIndex === 1 ? 'active' : ''} onClick={this.changeNav.bind(this, 1)}>
+											<li className={type === 2 ? 'active' : ''} onClick={this.changeNav.bind(this, 1)}>
 												<div className="link">
 													<span className="bg"></span>
 													<span>供给清单({this.state.supply_cnt})</span>
@@ -169,19 +197,4 @@ class DemandTypeList extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		city_name: state.city_name
-	}
-}
-
-// const mapDispatchToProps = (dispatch, ownProps) => {
-// 	return {
-// 		changeCityName: (value) => {
-// 			dispatch(createChangeCityNameAction(value))
-// 		}
-// 	}
-// }
-
-
-export default connect(mapStateToProps, null)(DemandTypeList)
+export default DemandTypeList

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import getUrlParams from '../../utils/getUrlParams';
 import './index.scss';
 
 import IMGIconGovernment from '../../assets/images/icon-government.png'
@@ -10,13 +10,17 @@ class ChoiceBG extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			city_name: '',
+			type: 0,
 			data: [
 				{
+					id: 1,
 					img: IMGIconGovernment,
 					name: '政府',
 					name_en: 'Government'
 				},
 				{
+					id: 2,
 					img: IMGIconBusiness,
 					name: '企业',
 					name_en: 'Business'
@@ -25,14 +29,21 @@ class ChoiceBG extends Component {
 		}
 	}
 	componentDidMount () {
-
+		const params = getUrlParams(this.props.location.search)
+		const { city_name, type } = params
+		this.setState({
+			city_name,
+			type
+		})
 	}
 
 	render () {
-		const data = this.state.data
-		console.log(data)
-		const linkTo = {
-			pathname: '/list'
+		const { data, type, city_name } = this.state
+
+		const linkTo = (id) => {
+			return {
+				pathname: `/list?type=${type}&city_name=${city_name}&nature=${id}`
+			}
 		}
 		return (
 			<div className='choice'>
@@ -43,7 +54,7 @@ class ChoiceBG extends Component {
 								data.map(item => {
 									return (
 										<li key={item.name_en}>
-											<Link className="link" to={linkTo}>
+											<Link className="link" to={linkTo(item.id)}>
 												<div className="border"></div>
 												<div className="bgc">
 													<div className="left">
