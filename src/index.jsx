@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import rootReducer from './reduces'
 
 import './index.scss';
+import 'animate.css';
 import App from './views/App';
 
 import * as serviceWorker from './serviceWorker';
