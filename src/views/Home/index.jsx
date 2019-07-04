@@ -11,19 +11,8 @@ import contentIMG01 from '../../assets/images/index-01.jpg'
 
 class Home extends Component {
 	constructor(props) {
-		console.log('props', props)
 		super(props)
-		this.duration = 5000
-		this.defaultStyle = {
-			transition: `all ${this.duration}ms ease-in-out`,
-			color: '#000'
-		}
-		this.transitionStyles = {
-			entering: { opacity: 1 },
-			entered: { opacity: 1 },
-			exiting: { opacity: 1 },
-			exited: { opacity: 1 },
-		};
+		this.duration = 500
 		this.state = {
 			ctrl1: false
 		}
@@ -33,7 +22,6 @@ class Home extends Component {
 	}
 	animation () {
 		setTimeout(() => {
-			console.log("setState")
 			this.setState({
 				ctrl1: true
 			})
@@ -41,7 +29,6 @@ class Home extends Component {
 	}
 	componentDidMount () {
 		console.log(this)
-		this.animation()
 	}
 	render () {
 		return (

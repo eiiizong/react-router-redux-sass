@@ -26,7 +26,6 @@ class AudioContainer extends Component {
   }
   render () {
     const { audioIsPlay, handleAudioPlay } = this.props
-    console.log(handleAudioPlay)
     return (
       <Audio audioUrl={music} handleAudioPlay={handleAudioPlay} audioIsPlay={audioIsPlay}></Audio>
     );

@@ -40,7 +40,6 @@ class MaskHintContainer extends Component {
   }
   componentWillMount () {
     const isShowMask = this._get()
-    console.log('isShowMask', isShowMask)
     if (isShowMask === false) {
       this.setState({
         isShowMask
