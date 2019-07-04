@@ -4,16 +4,13 @@ import './index.scss'
 
 class Search extends Component {
   static propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    change: PropTypes.func.isRequired,
+    clickSearch: PropTypes.func.isRequired,
+    inputChange: PropTypes.func.isRequired
   }
   static defaultProps = {
     data: []
-  }
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'E'
-    }
   }
   change (type, name, index1, index2) {
     const { change } = this.props
@@ -33,9 +30,6 @@ class Search extends Component {
     if (inputChange) {
       inputChange(value)
     }
-  }
-  componentDidMount () {
-    console.log(this)
   }
   render () {
     const { data } = this.props

@@ -9,11 +9,14 @@ import qs from 'qs';
 class SearchContainer extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
-    city: PropTypes.array.isRequired
+    city: PropTypes.array.isRequired,
+    cate: PropTypes.array.isRequired,
+    isLinkToOtherPages: PropTypes.bool.isRequired
   }
   static defaultProps = {
     history: {},
-    city: []
+    city: [],
+    cate: []
   }
   constructor(props) {
     super(props);
@@ -192,12 +195,18 @@ class SearchContainer extends Component {
     })
   }
   clickSearch = () => {
+    const { isLinkToOtherPages } = this.props
     const { keyword = '', city_name = [], cate = [], nature = '', type = '', request_type = [], scene = [] } = this.state.active
-    const { history } = this.props
-    const url = {
-      pathname: `/list?keyword=${keyword}&city_name=${city_name.join()}&nature=${nature}&type=${type}&cate=${cate.join()}&request_type=${request_type.join()}&scene=${scene.join()}`
+    if (isLinkToOtherPages) {
+      const { history } = this.props
+      const url = {
+        pathname: `/list?keyword=${keyword}&city_name=${city_name.join()}&nature=${nature}&type=${type}&cate=${cate.join()}&request_type=${request_type.join()}&scene=${scene.join()}`
+      }
+      history.push(url)
+    } else {
+      const { currentPageSearch } = this.props
+      currentPageSearch(keyword, city_name.join(), cate.join(), nature, type, request_type.join(), scene.join())
     }
-    history.push(url)
   }
   inputChange = (e) => {
     const active = { ...this.state.active }

@@ -153,7 +153,7 @@ class DemandTypeList extends Component {
 				<div className="content">
 					{
 						this.state.isShowSearch ?
-							<SearchContainer history={history} city={city} cate={cate}></SearchContainer> :
+							<SearchContainer history={history} city={city} cate={cate} isLinkToOtherPages={true}></SearchContainer> :
 							<Fragment>
 								<div className="top">
 									<div className="img-wrapper">

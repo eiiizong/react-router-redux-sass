@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 // import { Link } from 'react-router-dom';
 
 import TopNav from '../../components/TopNav'
-import Search from '../../components/Search'
+import SearchContainer from '../../containers/SearchContainer'
 
 import axios from '../../utils/axios';
 import getUrlParams from '../../utils/getUrlParams'
@@ -17,26 +17,108 @@ class DemandsList extends Component {
 			isShowSearch: false,
 			rightText: '筛选',
 			iconClassName: 'icon-filter',
-			list: []
+			list: [],
+			city: [],
+			cate: [],
+			page: 1,
+			params: {},
+			isShowLoadMore: true
 		}
 	}
 	componentDidMount () {
 		const params = getUrlParams(this.props.location.search)
-		const { city_name, type, nature, scene, ruquest_type, cate, keyword } = params;
-		this.requestAPI(city_name, type, nature, scene, ruquest_type, cate, keyword)
+		const { keyword, city_name, cate, nature, type, request_type, scene } = params;
+		this.requestAPI(keyword, city_name, cate, nature, type, request_type, scene)
+		this.setState({
+			params
+		})
 	}
-	requestAPI (city_name, type, nature, scene, ruquest_type, cate, keyword, page = 1) {
+	requestAPI (keyword, city_name, cate, nature, type, request_type, scene) {
+		const { page } = this.state
 		const data = {
-			city_name, type, nature, scene, ruquest_type, cate, keyword, page
+			keyword, city_name, cate, nature, type, request_type, scene, page
 		}
 		axios.post('/list/demand', qs.stringify(data)).then(res => {
 			if (res.status === 200 && res.data.status === "200") {
-				const data = res.data
-				this.setState({
-					list: data.list
-				})
+				const { list } = res.data
+
+				if (list.length >= 20) {
+					this.setState({
+						isShowLoadMore: true
+					})
+				} else {
+					this.setState({
+						isShowLoadMore: false
+					})
+				}
+
+				if (page === 1) {
+					this.setState({
+						list
+					})
+				} else {
+					this.setState({
+						list: [...this.state.list, ...list]
+					})
+				}
+
 				console.log(data)
 			}
+		})
+	}
+	// 请求搜索数据
+	requestSystem () {
+		axios.post('/list/system').then(res => {
+			if (res.status === 200 && res.data.status === "200") {
+				const data = res.data
+				this.initCity(data.city)
+				this.initCate(data.cate)
+			}
+		})
+	}
+	// 加载更多
+	loadMore () {
+		const { keyword, city_name, cate, nature, type, request_type, scene } = this.state.params;
+		let { page } = this.state
+		page++
+		this.setState({
+			page
+		}, () => {
+			this.requestAPI(keyword, city_name, cate, nature, type, request_type, scene)
+		})
+	}
+	// 搜索
+	currentPageSearch (keyword, city_name, cate, nature, type, request_type, scene) {
+		console.log(keyword, city_name, cate, nature, type, request_type, scene)
+		this.setState({
+			isShowSearch: !this.state.isShowSearch,
+			rightText: "筛选",
+			iconClassName: 'icon-filter',
+			page: 1
+		}, () => {
+			this.requestAPI(keyword, city_name, cate, nature, type, request_type, scene)
+		})
+	}
+	initCity = (city) => {
+		const arr = city.map(item => {
+			return {
+				name: item,
+				checked: false
+			}
+		})
+		this.setState({
+			city: arr
+		})
+	}
+	initCate = (cate) => {
+		const arr = cate.map(item => {
+			return {
+				name: item,
+				checked: false
+			}
+		})
+		this.setState({
+			cate: arr
 		})
 	}
 	linkToDeteil = (index) => {
@@ -57,6 +139,7 @@ class DemandsList extends Component {
 		if (!isShowSearch) {
 			rightText = '关闭'
 			iconClassName = ''
+			this.requestSystem()
 		} else {
 			rightText = '筛选'
 			iconClassName = 'icon-filter'
@@ -68,7 +151,8 @@ class DemandsList extends Component {
 		})
 	}
 	render () {
-		const { list, rightText, isShowSearch, iconClassName } = this.state
+		const { list, rightText, isShowSearch, iconClassName, city, cate } = this.state
+		const { history } = this.props
 		return (
 			<div className="demand-list">
 				<TopNav goBack={this.goBack} func={this.handleSearch} rightText={rightText} iconClassName={iconClassName} />
@@ -90,14 +174,14 @@ class DemandsList extends Component {
 									})
 								}
 								{
-									list.length >= 20 ?
-										<div className="show-more">下拉加载更多</div>
-										: null
+									this.state.isShowLoadMore ?
+										<div className="show-more" onClick={this.loadMore.bind(this)}>下拉加载更多</div>
+										: <div className="show-more" >没有更多可加载了</div>
 								}
 
 							</div>
 						</Fragment>
-						: <Search></Search>
+						: <SearchContainer history={history} city={city} cate={cate} isLinkToOtherPages={false} currentPageSearch={this.currentPageSearch.bind(this)}></SearchContainer>
 				}
 			</div>
 		);
