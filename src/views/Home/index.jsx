@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Transition, CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 
 import { Link } from 'react-router-dom';
 // import axios from '../../utils/axios';
@@ -13,46 +13,22 @@ class Home extends Component {
 	constructor(props) {
 		super(props)
 		this.duration = 500
-		this.state = {
-			ctrl1: false
-		}
+		this.state = {}
 	}
 	func () {
 
 	}
-	animation () {
-		setTimeout(() => {
-			this.setState({
-				ctrl1: true
-			})
-		}, 1000)
-	}
 	componentDidMount () {
-		console.log(this)
+		// console.log(this.props)
 	}
 	render () {
 		return (
 			<div className="home">
 				<div className="title">
-					<CSSTransition
-						in={true}
-						timeout={this.duration}
-						classNames={{
-							appear: 'my-appear',
-							appearActive: 'my-active-appear',
-							appearDone: 'my-done-appear',
-							enter: 'my-enter',
-							enterActive: 'my-active-enter',
-							enterDone: 'my-done-enter',
-							exit: 'my-exit',
-							exitActive: 'my-active-exit',
-							exitDone: 'my-done-exit',
-						}}>
-						<div className="left">
-							<i className="icon"></i>
-							<span>城市机会</span>
-						</div>
-					</CSSTransition>
+					<div className="left">
+						<i className="icon"></i>
+						<span>城市机会</span>
+					</div>
 					<div className="right">
 						<img src={logoIMG} alt="logo" />
 					</div>

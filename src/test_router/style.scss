@@ -1,0 +1,53 @@
+.forward-enter {
+  transform: translateX(-100%);
+}
+
+.forward-exit {
+  transform: translateX(0);
+}
+
+.forward-enter-active {
+  transform: translateX(0%);
+  transition: all 500ms ease-in;
+}
+
+.forward-exit-active {
+  transform: translateX(100%);
+  transition: all 500ms ease-in;
+}
+
+.forward-enter-done {
+  transform: translateX(0);
+}
+
+.forward-exit-done {
+  transform: translateX(100%);
+}
+
+// 后退
+
+.back-enter {
+  transform: translateX(100%);
+}
+
+.back-exit {
+  transform: translateX(0);
+}
+
+.back-enter-active {
+  transform: translateX(0);
+  transition: all 500ms ease-in;
+}
+
+.back-exit-active {
+  transform: translateX(-100%);
+  transition: all 500ms ease-in;
+}
+
+.back-enter-done {
+  transform: translateX(0);
+}
+
+.back-exit-done {
+  transform: translateX(-100%);
+}

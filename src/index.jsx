@@ -10,7 +10,8 @@ import 'animate.css';
 // import App from './views/App';
 // import App from './test_router/BasicExample';
 // import App from './test_router/ParamsExample';
-import App from './test_router/AuthExample';
+// import App from './test_router/AuthExample';
+import App from './test_router/AnimationExample';
 
 import * as serviceWorker from './serviceWorker';
 
